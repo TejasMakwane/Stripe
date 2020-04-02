@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Payment Store</title>
+    <link rel="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+    <style>
+
+        .img-responsive
+        {
+            size: 50px;
+            width: 50%;
+            height: 50%;
+        }
+    </style>
+    
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-lg-12">
+            <h1 class="page-header">Buy My Car</h1>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-8">
+        <img class="img-responsive" src="http://www.hdnicewallpapers.com/Walls/Big/Other%20Cars/Ford_Mustang_GT_8K_Wallpaper.jpg">
+        <h2>RS.1000000</h2>
+    </div>
+
+    <div class="col-md-4">
+        <h3>My Best Car</h3>
+        <h4>Plz Buy My Car</h4>
+        <h3>Car Details</h3>
+        <ul>
+            <li>This is Sport Car</li>
+             <li>This is WonderFull Car </li>
+              <li>This isMultiPower Engine </li>
+              
+               
+        </ul>
+        
+        <form action="/charge" method="post">
+        <noscript>You must <a href="http://www.enable-javascript.com" target="_blank">enable JavaScript</a> in your web browser in order to pay via Stripe.</noscript>
+
+        <input 
+            type="submit" 
+            value="Pay with Card"
+            data-key="pk_test_ESolMB8bvaKArbLcUWeKC8ll00fqElMlGy"
+            data-amount="1000000"
+            data-currency="cad"
+            data-name="Example Company Inc"
+            data-description="Your Car Payment is Rs.1000000"
+        />
+
+        <script src="https://checkout.stripe.com/v2/checkout.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+        <script>
+        $(document).ready(function() {
+            $(':submit').on('click', function(event) {
+                event.preventDefault();
+                var $button = $(this),
+                    $form = $button.parents('form');
+
+                var opts = $.extend({}, $button.data(), {
+                    token: function(result) {
+                        $form.append($('<input>').attr({ type: 'hidden', name: 'stripeToken', value: result.id })).submit();
+                    }
+                });
+
+                StripeCheckout.open(opts);
+            });
+        });
+        </script>
+</form>
+
+    </div>
+</div>
+
+   
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
